@@ -1,0 +1,41 @@
+PODS:
+  - Flutter (1.0.0)
+  - flutter_contacts (0.0.1):
+    - Flutter
+  - flutter_libphonenumber_ios (1.1.4):
+    - Flutter
+    - PhoneNumberKit/PhoneNumberKitCore (= 3.8.0)
+  - permission_handler_apple (9.3.0):
+    - Flutter
+  - PhoneNumberKit/PhoneNumberKitCore (3.8.0)
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - flutter_contacts (from `.symlinks/plugins/flutter_contacts/ios`)
+  - flutter_libphonenumber_ios (from `.symlinks/plugins/flutter_libphonenumber_ios/ios`)
+  - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
+
+SPEC REPOS:
+  trunk:
+    - PhoneNumberKit
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  flutter_contacts:
+    :path: ".symlinks/plugins/flutter_contacts/ios"
+  flutter_libphonenumber_ios:
+    :path: ".symlinks/plugins/flutter_libphonenumber_ios/ios"
+  permission_handler_apple:
+    :path: ".symlinks/plugins/permission_handler_apple/ios"
+
+SPEC CHECKSUMS:
+  Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
+  flutter_contacts: 5383945387e7ca37cf963d4be57c21f2fc15ca9f
+  flutter_libphonenumber_ios: 6bd2fac9dfb8f37c5732451fb7c9a992f1088d86
+  permission_handler_apple: 4ed2196e43d0651e8ff7ca3483a069d469701f2d
+  PhoneNumberKit: ec00ab8cef5342c1dc49fadb99d23fa7e66cf0ef
+
+PODFILE CHECKSUM: e0faccab5d03850266e7e70e4043e642fcc78e65
+
+COCOAPODS: 1.16.2
