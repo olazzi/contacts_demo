@@ -1,5 +1,21 @@
+import 'package:contacts_demo/features/contacts/widgets/phone_input_field.dart';
 import 'package:flutter/material.dart';
 import '../widgets/currency_textfield.dart';
+import '../widgets/send_alert.dart';
+
+class ContactAlertModel {
+  final String phone;
+  final String name;
+  final String role;
+  final String link;
+
+  ContactAlertModel({
+    required this.phone,
+    required this.name,
+    required this.role,
+    required this.link,
+  });
+}
 
 class ContactFormPage extends StatefulWidget {
   const ContactFormPage({super.key});
@@ -9,7 +25,16 @@ class ContactFormPage extends StatefulWidget {
 }
 
 class _ContactFormPageState extends State<ContactFormPage> {
-  num _amountWithDecimals = 0;
+  final TextEditingController nameCtrl = TextEditingController(
+    text: "John Doe",
+  );
+  final TextEditingController roleCtrl = TextEditingController(
+    text: "Executor",
+  );
+  final TextEditingController linkCtrl = TextEditingController(
+    text: "https://example.com/plan",
+  );
+  final TextEditingController phoneCtrl = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -26,24 +51,57 @@ class _ContactFormPageState extends State<ContactFormPage> {
                 top: false,
                 child: Padding(
                   padding: const EdgeInsets.all(12),
-                  child: Row(
+                  child: Column(
                     children: [
-                      Expanded(
-                        child: CurrencyTextField(
-                          locale: 'en_US',
-                          symbol: r'$',
-                          decimalDigits: 2,
-                          onValue: (v) => _amountWithDecimals = v,
-                          decoration: const InputDecoration(
-                            labelText: 'Amount with decimals',
-                            border: OutlineInputBorder(),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: PhoneInputField(
+                              onChanged: (v) => phoneCtrl.text = v,
+                            ),
                           ),
-                        ),
+                          const SizedBox(width: 12),
+                          FilledButton(
+                            onPressed: () {
+                              final data = ContactAlertModel(
+                                phone: phoneCtrl.text,
+                                name: nameCtrl.text,
+                                role: roleCtrl.text,
+                                link: linkCtrl.text,
+                              );
+                              SendAlert.send(context, data);
+                            },
+                            child: const Text('Send Alert'),
+                          ),
+                        ],
                       ),
-                      const SizedBox(width: 12),
-                      FilledButton(
-                        onPressed: () => FocusScope.of(context).unfocus(),
-                        child: const Text('Done'),
+
+                      const SizedBox(height: 16),
+                      TextField(
+                        controller: nameCtrl,
+                        decoration: const InputDecoration(
+                          labelText: 'Name',
+                          border: OutlineInputBorder(),
+                        ),
+                        keyboardType: TextInputType.name,
+                      ),
+                      const SizedBox(height: 16),
+                      TextField(
+                        controller: roleCtrl,
+                        decoration: const InputDecoration(
+                          labelText: 'Role',
+                          border: OutlineInputBorder(),
+                        ),
+                        keyboardType: TextInputType.text,
+                      ),
+                      const SizedBox(height: 16),
+                      TextField(
+                        controller: linkCtrl,
+                        decoration: const InputDecoration(
+                          labelText: 'Link',
+                          border: OutlineInputBorder(),
+                        ),
+                        keyboardType: TextInputType.url,
                       ),
                     ],
                   ),

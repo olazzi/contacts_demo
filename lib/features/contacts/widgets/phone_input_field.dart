@@ -166,7 +166,10 @@ class UsPhoneFormatter extends TextInputFormatter {
 }
 
 class PhoneInputField extends StatefulWidget {
-  const PhoneInputField({super.key});
+  final ValueChanged<String>? onChanged;
+
+  const PhoneInputField({super.key, this.onChanged});
+
   @override
   State<PhoneInputField> createState() => _PhoneInputFieldState();
 }
@@ -178,12 +181,29 @@ class _PhoneInputFieldState extends State<PhoneInputField> {
   final nsnFocus = FocusNode();
   String _prevCc = '';
 
+  String _digits(String s) => s.replaceAll(RegExp(r'\D'), '');
+
+  void _emit() {
+    final cc = ccController.text.trim();
+    final nsn = _digits(nsnController.text);
+    if (widget.onChanged != null) {
+      if (cc.isEmpty && nsn.isEmpty) {
+        widget.onChanged!('');
+      } else {
+        widget.onChanged!('+$cc$nsn');
+      }
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     ccFocus.addListener(() => setState(() {}));
     nsnFocus.addListener(() => setState(() {}));
-    nsnController.addListener(() => setState(() {}));
+    nsnController.addListener(() {
+      setState(() {});
+      _emit();
+    });
     ccController.addListener(() {
       final cc = ccController.text;
       if (ccFocus.hasFocus && cc == '1' && _prevCc != '1') {
@@ -195,6 +215,7 @@ class _PhoneInputFieldState extends State<PhoneInputField> {
         });
       }
       _prevCc = cc;
+      _emit();
     });
   }
 
@@ -285,6 +306,7 @@ class _PhoneInputFieldState extends State<PhoneInputField> {
                           onPressed: () {
                             nsnController.clear();
                             FocusScope.of(context).unfocus();
+                            _emit();
                           },
                           tooltip: 'Clear',
                         ),
