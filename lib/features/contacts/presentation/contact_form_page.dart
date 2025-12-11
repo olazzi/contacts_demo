@@ -2,6 +2,7 @@ import 'package:contacts_demo/features/contacts/widgets/phone_input_field.dart';
 import 'package:flutter/material.dart';
 import '../widgets/currency_textfield.dart';
 import '../widgets/send_alert.dart';
+import '../widgets/share_alert.dart';
 
 class ContactAlertModel {
   final String phone;
@@ -55,12 +56,6 @@ class _ContactFormPageState extends State<ContactFormPage> {
                     children: [
                       Row(
                         children: [
-                          Expanded(
-                            child: PhoneInputField(
-                              onChanged: (v) => phoneCtrl.text = v,
-                            ),
-                          ),
-                          const SizedBox(width: 12),
                           FilledButton(
                             onPressed: () {
                               final data = ContactAlertModel(
@@ -73,7 +68,26 @@ class _ContactFormPageState extends State<ContactFormPage> {
                             },
                             child: const Text('Send Alert'),
                           ),
+                          const SizedBox(width: 8),
+                          FilledButton.tonal(
+                            onPressed: () {
+                              final data = ContactAlertModel(
+                                phone: phoneCtrl.text,
+                                name: nameCtrl.text,
+                                role: roleCtrl.text,
+                                link: linkCtrl.text,
+                              );
+                              ShareAlert.share(data);
+                            },
+                            child: const Text('Share Sheet'),
+                          ),
                         ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        child: PhoneInputField(
+                          onChanged: (v) => phoneCtrl.text = v,
+                        ),
                       ),
 
                       const SizedBox(height: 16),

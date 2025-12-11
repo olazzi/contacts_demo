@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:contacts_demo/features/contacts/presentation/contact_form_page.dart';
-import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:share_plus/share_plus.dart';
 
 class SendAlert {
   static Future<void> send(BuildContext context, ContactAlertModel data) async {
